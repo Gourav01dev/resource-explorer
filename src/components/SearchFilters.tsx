@@ -1,4 +1,3 @@
-// SearchFilters.tsx
 "use client";
 
 import { useDebounce } from "@/hooks/useDebounce";
@@ -6,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useState, useRef } from "react";
 
 interface SearchFiltersProps {
-  favorites: number[];
+    favorites: number[];
 }
 
 export const SearchFilters = ({ favorites }: SearchFiltersProps) => {
@@ -37,7 +36,6 @@ export const SearchFilters = ({ favorites }: SearchFiltersProps) => {
         }
 
         params.delete("page");
-
         router.push(`/?${params.toString()}`);
     };
 
@@ -45,7 +43,6 @@ export const SearchFilters = ({ favorites }: SearchFiltersProps) => {
         setSearchValue(value);
 
         const params = new URLSearchParams(searchParams.toString());
-
         if (value.trim()) {
             params.set("name", value.trim());
         } else {
@@ -59,11 +56,11 @@ export const SearchFilters = ({ favorites }: SearchFiltersProps) => {
     const debouncedSearch = useDebounce(handleSearchChange, 500);
 
     return (
-        <div className="bg-white p-6 rounded-lg shadow-md">
+        <div className="bg-white p-[6px] rounded-2xl shadow-lg border border-gray-100">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {/* Search Input */}
-                <div>
-                    <label htmlFor="search" className="block text-sm font-medium text-gray-700 mb-1">
+                <div className="w-[calc(100%-8px)] mx-auto">
+                    <label htmlFor="search" className="block text-sm font-medium text-gray-700 mb-2">
                         Search
                     </label>
                     <input
@@ -73,22 +70,26 @@ export const SearchFilters = ({ favorites }: SearchFiltersProps) => {
                         placeholder="Search characters..."
                         defaultValue={searchParams.get("name") || ""}
                         onChange={e => debouncedSearch(e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-[calc(100%-8px)] mx-auto h-[36px] px-3 border border-gray-200 rounded-xl text-sm shadow-sm 
+              focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent 
+              transition-colors duration-200"
                     />
                 </div>
 
                 {/* Status Filter */}
-                <div>
-                    <label htmlFor="status" className="block text-sm font-medium text-gray-700 mb-1">
+                <div className="w-[calc(100%-8px)] mx-auto">
+                    <label htmlFor="status" className="block text-sm font-medium text-gray-700 mb-2">
                         Status
                     </label>
                     <select
                         id="status"
                         defaultValue={searchParams.get("status") || ""}
                         onChange={e => updateQuery("status", e.target.value, true)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        className="w-full h-[40px] pl-3 pr-8 border border-gray-200 rounded-xl text-sm shadow-sm bg-white
+              focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent 
+              transition-colors duration-200 cursor-pointer">
                         {statusOptions.map(option => (
-                            <option key={option} value={option}>
+                            <option key={option} value={option} className="h-[32px] pl-3 text-sm">
                                 {option || "All Status"}
                             </option>
                         ))}
@@ -96,17 +97,19 @@ export const SearchFilters = ({ favorites }: SearchFiltersProps) => {
                 </div>
 
                 {/* Species Filter */}
-                <div>
-                    <label htmlFor="species" className="block text-sm font-medium text-gray-700 mb-1">
+                <div className="w-[calc(100%-8px)] mx-auto">
+                    <label htmlFor="species" className="block text-sm font-medium text-gray-700 mb-2">
                         Species
                     </label>
                     <select
                         id="species"
                         defaultValue={searchParams.get("species") || ""}
                         onChange={e => updateQuery("species", e.target.value, true)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        className="w-full h-[40px] pl-3 pr-8 border border-gray-200 rounded-xl text-sm shadow-sm bg-white
+              focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent 
+              transition-colors duration-200 cursor-pointer">
                         {speciesOptions.map(option => (
-                            <option key={option} value={option}>
+                            <option key={option} value={option} className="h-[32px] pl-3 text-sm">
                                 {option || "All Species"}
                             </option>
                         ))}
@@ -114,17 +117,19 @@ export const SearchFilters = ({ favorites }: SearchFiltersProps) => {
                 </div>
 
                 {/* Gender Filter */}
-                <div>
-                    <label htmlFor="gender" className="block text-sm font-medium text-gray-700 mb-1">
+                <div className="w-[calc(100%-8px)] mx-auto">
+                    <label htmlFor="gender" className="block text-sm font-medium text-gray-700 mb-2">
                         Gender
                     </label>
                     <select
                         id="gender"
                         defaultValue={searchParams.get("gender") || ""}
                         onChange={e => updateQuery("gender", e.target.value, true)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        className="w-full h-[40px] pl-3 pr-8 border border-gray-200 rounded-xl text-sm shadow-sm bg-white
+              focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent 
+              transition-colors duration-200 cursor-pointer">
                         {genderOptions.map(option => (
-                            <option key={option} value={option}>
+                            <option key={option} value={option} className="h-[32px] pl-3 text-sm">
                                 {option || "All Genders"}
                             </option>
                         ))}
@@ -132,33 +137,34 @@ export const SearchFilters = ({ favorites }: SearchFiltersProps) => {
                 </div>
             </div>
 
-            {/* Favorites Filter */}
-            <div className="mt-4">
-                <label className="flex items-center">
-                    <input
-                        type="checkbox"
-                        checked={searchParams.get("favorites") === "true"}
-                        onChange={e => updateQuery("favorites", e.target.checked ? "true" : "", true)}
-                        className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                    />
-                    <span className="ml-2 text-sm text-gray-700">Show Favorites ({favorites.length})</span>
-                </label>
-            </div>
-
             {/* Clear All Filters Button */}
-            <div className="mt-4 flex justify-end">
+            <div className="mt-[6px] flex justify-center w-[calc(100%-8px)] mx-auto">
                 <button
                     onClick={() => {
                         router.push("/");
-
                         setSearchValue("");
                         if (searchInputRef.current) {
                             searchInputRef.current.value = "";
                         }
                     }}
-                    className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors">
+                    className="px-5 h-[40px] bg-gray-100 text-gray-700 text-sm font-medium rounded-xl 
+        hover:bg-gray-200 active:bg-gray-300 
+        focus:outline-none focus:ring-2 focus:ring-gray-400 transition">
                     Clear All Filters
                 </button>
+            </div>
+
+            {/* Favorites Filter */}
+            <div className="mt-[6px] flex justify-center w-[calc(100%-8px)] mx-auto">
+                <label className="flex items-center cursor-pointer">
+                    <input
+                        type="checkbox"
+                        checked={searchParams.get("favorites") === "true"}
+                        onChange={e => updateQuery("favorites", e.target.checked ? "true" : "", true)}
+                        className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                    />
+                    <span className="ml-2 text-sm text-gray-700">Show Favorites ({favorites.length})</span>
+                </label>
             </div>
         </div>
     );
