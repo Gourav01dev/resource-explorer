@@ -26,6 +26,8 @@ Clone the repository:
 git clone https://github.com/Gourav01dev/resource-explorer.git
 cd resource-explorer
 
-npm install
+npm install 
+or 
+yarn install
 
 npm run dev
