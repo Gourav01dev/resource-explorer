@@ -55,6 +55,12 @@ export const SearchFilters = ({ favorites }: SearchFiltersProps) => {
 
     const debouncedSearch = useDebounce(handleSearchChange, 500);
 
+    const currentSort = searchParams.get("sort") || "asc";
+    const toggleSort = () => {
+        const newSort = currentSort === "asc" ? "desc" : "asc";
+        updateQuery("sort", newSort, false);
+    };
+
     return (
         <div className="bg-white p-[6px] rounded-2xl shadow-lg border border-gray-100">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -138,7 +144,7 @@ export const SearchFilters = ({ favorites }: SearchFiltersProps) => {
             </div>
 
             {/* Clear All Filters Button */}
-            <div className="mt-[6px] flex justify-center w-[calc(100%-8px)] mx-auto">
+            <div className="mt-[6px] flex justify-center w-[calc(100%-8px)] mx-auto gap-4">
                 <button
                     onClick={() => {
                         router.push("/");
@@ -151,6 +157,15 @@ export const SearchFilters = ({ favorites }: SearchFiltersProps) => {
         hover:bg-gray-200 active:bg-gray-300 
         focus:outline-none focus:ring-2 focus:ring-gray-400 transition">
                     Clear All Filters
+                </button>
+
+                {/* Sort Toggle Button */}
+                <button
+                    onClick={toggleSort}
+                    className="px-5 h-[40px] bg-blue-500 text-white text-sm font-medium rounded-xl 
+        hover:bg-blue-600 active:bg-blue-700 
+        focus:outline-none focus:ring-2 focus:ring-blue-400 transition">
+                    Sort: {currentSort === "asc" ? "Ascending ↑" : "Descending ↓"}
                 </button>
             </div>
 

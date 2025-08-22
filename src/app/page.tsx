@@ -41,6 +41,14 @@ export default function HomePage() {
     const hasNoResults = !showFavorites && characters.length === 0 && !isLoading && !error;
     const hasActiveFilters = !showFavorites && (name || status || species || gender);
 
+    const sortOrder = searchParams.get("sort") || "asc";
+
+    const sortedCharacters = [...filteredCharacters].sort((a, b) => {
+        if (a.name < b.name) return sortOrder === "asc" ? -1 : 1;
+        if (a.name > b.name) return sortOrder === "asc" ? 1 : -1;
+        return 0;
+    });
+
     useEffect(() => {
         setMounted(true);
     }, []);
@@ -126,7 +134,7 @@ export default function HomePage() {
                                     </p>
                                 </div>
                             ) : (
-                                <CharacterList characters={filteredCharacters} />
+                                <CharacterList characters={sortedCharacters} />
                             )}
 
                             {info && info.pages > 1 && !showFavorites && filteredCharacters.length > 0 && (

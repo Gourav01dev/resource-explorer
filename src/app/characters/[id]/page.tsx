@@ -112,8 +112,8 @@ export default function CharacterDetail() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 py-12 flex justify-center">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+        <div className="min-h-screen bg-gray-50 py-[12px] flex justify-center">
+            <div className="container mx-auto px-[4px] sm:px-6 lg:px-8 flex flex-col items-center">
                 <Link href="/" className="text-white hover:text-white transition-colors duration-200 inline-block font-medium mb-[8px]">
                     ← Back to Characters
                 </Link>
